@@ -1,14 +1,13 @@
-import snowflake.connector
-from fivetran_connector_sdk import Operations as op
-from fivetran_connector_sdk import Logging as log
-from fivetran_connector_sdk import Connector
-import requests
-from pathlib import Path
-import traceback
 import datetime
 import json
-os
+import traceback
+from pathlib import Path
 
+import requests
+import snowflake.connector
+from fivetran_connector_sdk import Connector
+from fivetran_connector_sdk import Logging as log
+from fivetran_connector_sdk import Operations as op
 
 INIT_DELTA = datetime.timedelta(days=2)
 BASE_API_URL = "https://newsapi.org/v2/everything"
@@ -53,6 +52,7 @@ def schema(configuration: dict):
         }
     ]
 
+
 # Utility functions
 
 
@@ -85,6 +85,7 @@ def camel(title):
     parts = title.split("_")
     reassembled = "".join([p.title() for p in parts])
     return reassembled[0].lower() + reassembled[1:]
+
 
 # Main show
 
@@ -213,6 +214,7 @@ if __name__ == "__main__":
     config_file = CWD / "configuration.json"
     if not config_file.exists():
         from gen_config import gen  # noqa
+
         gen()
 
     with open("configuration.json") as fp:
